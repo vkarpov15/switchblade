@@ -1,19 +1,19 @@
+#!/usr/bin/env node
 'use strict';
 
 const commander = require('commander');
 const fs = require('fs');
-const packageJson = require('./package.json');
+const packageJson = require(`${process.cwd()}/package.json`);
 const switchblade = require('../');
 
 commander.
-  usage('switchblade --file <file> --host <host>').
-  option('-f, --file <file>', 'File(s) to push to server').
+  usage('switchblade --host <host> files').
   option('-h, --host <host>', 'Host to deploy to').
   option('-s, --start <start>', 'npm script to run to start server').
   option('-t, --stop <stop>', 'npm script to run to stop server').
   parse(process.argv);
 
-const files = Array.isArray(commander.file) ? commander.file : [commander.file];
+const files = commander.args;
 const host = commander.host;
 const credentials = fs.readFileSync(process.env.SWITCHBLADE_CREDENTIALS);
 
