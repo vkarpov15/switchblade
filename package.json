@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "author": "Valeri Karpov <val@karpov.io>",
   "description": "Lightweight deployment to EC2 over SSH for node apps that use forever",
+  "bin": "./bin/switchblade.js",
   "dependencies": {
     "co": "4.6.0",
     "co-ssh": "0.0.1",
