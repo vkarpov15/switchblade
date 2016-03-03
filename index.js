@@ -20,13 +20,12 @@ module.exports = function(host, credentials, options) {
     });
 
     yield conn.connect();
-    yield conn.exec(`cd ${options.projectName}`);
-    yield conn.exec(`sudo npm run ${options.stopScript}`);
+    yield conn.exec(`cd ${options.projectName} && sudo npm run ${options.stopScript}`);
     for (var path of options.files) {
       const dest = `${options.projectName}/${path}`;
       yield callback => scpClient.upload(path, dest, callback);
     }
-    yield conn.exec(`npm install`);
-    yield conn.exec(`sudo npm run ${options.startScript}`);
+    yield conn.exec(`cd ${options.projectName} && npm install`);
+    yield conn.exec(`cd ${options.projectName} && sudo npm run ${options.startScript}`);
   });
 };
